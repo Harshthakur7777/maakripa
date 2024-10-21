@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=dev && nodemon my_file.js"
+    "start": "cross-env NODE_ENV=production node my_file.js",
+    "dev": "cross-env NODE_ENV=dev nodemon my_file.js"
   }
 }
