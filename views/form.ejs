@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply the body styles only if there's no conflict */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8; /* Change background only if needed */
+}
+
+/* Container styling */
+.form-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 400px;
+    margin: 40px auto; /* Center the form container */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading styling */
+h1 {
+    text-align: center;
+    color: #2575fc;
+    margin-bottom: 25px;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* File input styling */
+.file-input {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hide the default file input */
+.file-input input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Placeholder text styling */
+#filePlaceholder {
+    font-size: 16px;
+    color: #888;
+}
+
+/* File input focus state */
+.file-input input[type="file"]:focus + #filePlaceholder,
+.file-input input[type="file"]:hover + #filePlaceholder {
+    color: #2575fc;
+}
+
+/* When a file is selected, change the placeholder text */
+.file-input input[type="file"]:valid + #filePlaceholder {
+    color: #2575fc;
+    font-weight: bold;
+}
+
+/* Styling the file input container on hover */
+.file-input:hover {
+    border-color: #2575fc;
+    box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+}
+
+/* Styling the file input container when active (file selected) */
+.file-input input[type="file"]:valid {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2575fc;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #1a5bb8;
+    transform: translateY(-2px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    input[type="text"],
+    textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>admin panel/ add a car</h1>
+        <form action="/admin/add" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <input type="text" placeholder="enter car full name" name="Name" value="" required>
+            </div>
+            <div class="form-group">
+                <select name="SRB" required>
+                    <option selected>rent/sell/buy</option>
+                    <option value="for sale">for sale</option>
+                    <option value="for rent">for rent</option>
+                    <option value="for buy">for buy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" name="rate" value="" placeholder="rate of the car" required>
+            </div>
+            <div class="form-group">
+                <select name="type" required>
+                    <option value="0" selected>Category</option>
+                     <option value="kia">Kia</option>
+                     <option value="tata">Tata</option>
+                     <option value="hyundai">Hyundai</option>
+                     <option value="toyota">Toyota</option>
+                     <option value="mahindra">Mahindra</option>
+                     <option value="ford">Ford</option>
+                     <option value="suzuki">Suzuki</option>
+                     <option value="other">Others</option>
+                   </select>
+            </div>
+            <div class="form-group">
+                <input type="number" name="model" placeholder="enter car model year" value="" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="RTO" placeholder="enter RTO number" value="" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="owner" placeholder="enter owner number" value="" required>
+            </div>
+            <div class="form-group">
+                <input type="number" name="driven" id="" value="" placeholder="driven kilometers" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="additional" value="" placeholder="enter additional information">
+            </div>
+            <div class="form-group">
+                <input type="file" name="mainimg" value="" placeholder="select main image" required>
+            </div>
+            <div class="form-group">
+                <input type="file" name="img1" value="", placeholder="select img 1" required>
+            </div>
+            <div class="form-group">
+                <input type="file" name="img2" value="", placeholder="select img 2" required>
+            </div>
+            <div class="form-group">
+                <input type="file" name="img3" value="", placeholder="select img 3">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img4" value="", placeholder="select img 4">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img5" value="", placeholder="select img 5">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img6" value="", placeholder="select img 6">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img7" value="", placeholder="select img 7">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img8" value="", placeholder="select img 8">
+            </div>
+            <div class="form-group">
+                <input type="file" name="img9" value="", placeholder="select img 9">
+            </div>
+            <div class="form-group">
+                <input type="file" name="video" value="", placeholder="select video">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" value="" placeholder="enter password" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('image');
+        const filePlaceholder = document.getElementById('filePlaceholder');
+
+        imageInput.addEventListener('change', function() {
+            if (imageInput.files.length > 0) {
+                filePlaceholder.textContent = imageInput.files[0].name;
+            } else {
+                filePlaceholder.textContent = "Add Your Photo";
+            }
+        });
+    </script>
+</body>
+</html>
