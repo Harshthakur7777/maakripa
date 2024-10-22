@@ -9,8 +9,8 @@
     "uniqid": "^5.4.0"
   },
   "scripts": {
-  "start": "node my_file.js",
-  "dev": "cross-env NODE_ENV=development nodemon my_file.js"
+  "start": "node app.js",
+  "dev": "cross-env NODE_ENV=development nodemon app.js"
 }
 
 }
