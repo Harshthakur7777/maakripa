@@ -181,7 +181,7 @@ th:nth-child(2), td:nth-child(2) {
 }
 .responsive-image {
   width: 100%;
-  height: auto;
+  height: 600px;
   max-width: 100%;
   display: block;
   object-fit: contain; /* Ensure the entire image is displayed without cropping */
@@ -352,7 +352,7 @@ th:nth-child(2), td:nth-child(2) {
         <div class="image-container responsive-image-container" style="flex: 1;">
           <div class="aa-properties-details-img ">
             <% for (let imgs of car.images) { %>
-              <img src="<%- imgs %>" alt="" class="responsive-image">
+              <img src="<%- imgs %>" alt="imggggg" class="responsive-image">
             <% } %>
         </div>
     

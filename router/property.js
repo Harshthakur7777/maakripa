@@ -28,7 +28,12 @@ router.post('/review/addReview',uploads.single('image') ,(req,res,next)=>{
     newReview.name = req.body.name;
     newReview.profession = req.body.profession;
     newReview.content = req.body.review;
-    newReview.image = '/img/'+req.file.filename;
+    if(req.file){
+        newReview.image = '/img/'+req.file.filename;
+    }
+    else{
+        newReview.image = '/img/profile.png'
+    }
     review.array.push(newReview);
     res.redirect('/home/review')
 })
@@ -90,11 +95,13 @@ router.get('/:cars',(req,res,next)=>{
     }
     isAll=false;
     if(cars.length==0){
-        res.send('not avilable');
+        res.render('404');
     }
-    res.render('cars',{numberWithCommas : function (x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      },cars, isAll})
+    else{
+        res.render('cars',{numberWithCommas : function (x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          },cars, isAll})
+    }
 })
 router.get('/:cars/:id',(req,res,next)=>{
     let car;
@@ -104,9 +111,10 @@ router.get('/:cars/:id',(req,res,next)=>{
             car = prop;
         }
     }
-
-    res.render('car-detail',{numberWithCommas : function (x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      },car})
+    if(car){
+        res.render('car-detail',{numberWithCommas : function (x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          },car})
+    }
 })
 module.exports = router
