@@ -38,7 +38,7 @@ exports.DATA = [
     "index": 3,
     "Name": "Hyundai i20 2018",
     "SRB": "For Sale",
-    "rate": 520000,
+    "rate": 145000,
     "type": "hyundai",
     "model": "2018",
     "RTO": "MP 09",
