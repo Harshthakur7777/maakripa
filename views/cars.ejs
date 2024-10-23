@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Home Property | Properties</title>
+    <title>Maa Kripa Auto Deals | Cars in Indore</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
     
     
     <!-- Font awesome -->
@@ -40,6 +40,17 @@
     <![endif]-->
   
     <style>
+        .sticky-footer
+  {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays above other content */
+    background-color: #fff; /* Match the footer background color */
+    padding: 10px 0;
+  }
+
       span{
         color: #59abe3;;
       }
@@ -112,16 +123,21 @@
       <div class="row">
         <div class="col-md-12">
           <div class="aa-property-header-inner">
-            <% if(isAll){ %>
-              <h2>All cars in Indore</h2>
+            <% if(cars.length==0){ %>
+              <h2>No cars available in this category</h2>
             <% } %>
-            <% if(!isAll){ %>
-              <h2><%= cars[0].type %>`s in Indore</h2>
-            <% } %>
-            <ol class="breadcrumb">
-            <li><a href="#">CARS</a></li>            
-            <li class="active"><%= cars[0].type %>s</li>
-          </ol>
+            <% if(cars.length!=0){ %>
+              <% if(isAll){ %>
+                <h2>All cars in Indore</h2>
+              <% } %>
+              <% if(!isAll){ %>
+                <h2><%= written %>`s in Indore</h2>
+              <% } %>
+              <ol class="breadcrumb">
+                <li><a href="#">CARS</a></li>            
+                <li class="active"><%= cars[0].type %>s</li>
+              </ol>
+              <% } %>  
           </div>
         </div>
       </div>
@@ -140,6 +156,7 @@
             <!-- Start properties content body -->
             <div class="aa-properties-content-body">
               <ul class="aa-properties-nav">
+                <% if(cars.length!=0){ %>
                 <% for(let car of cars){ %>
                  <li>
                   <article class="aa-properties-item">
@@ -166,6 +183,10 @@
                   </article>
                 </li>
                 <% } %>
+                <% } %>
+                <%if(cars.length==0){%>
+                  <h1>! No cars available in this category</h1>
+                <%}%>  
               </ul>
             </div>
             
@@ -176,7 +197,7 @@
   <!-- / Properties  -->
 
   <!-- Footer -->
-  <footer id="aa-footer">
+  <footer id="aa-footer" class="sticky-footer">
     <div class="container">
       <div class="row">
         <div class="col-md-12">

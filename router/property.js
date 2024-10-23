@@ -41,17 +41,17 @@ router.get('/review/addreview',(req,res,next)=>{
     res.render('reviewform')
 })
 router.post('/search',(req,res,next)=>{
+    let written = "";
     let isAll = false;
     let arr = data.DATA;
     let cars = [];
-    if(req.body.cartype=='all'){
+    if(req.body.cartype=='all' && req.body.budget==0){
+        written = "All Cars"
         isAll=true;
         cars = arr;
-        res.render('cars',{numberWithCommas : function (x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        },cars,isAll})
     }
-    else if(req.body.budget==0){
+    else if(req.body.budget==0 && req.body.cartype!='all'){
+        written = req.body.cartype;
         for(let car of arr){
             if(car.type==req.body.cartype)
             {
@@ -59,18 +59,35 @@ router.post('/search',(req,res,next)=>{
             }
         }
     }
-    for(let car of arr){
-        if(car.type==req.body.cartype && car.rate<=req.body.budget)
+    else if(req.body.budget!=0 && req.body.cartype=='all'){
+        if(req.body.budget==2000000){
+            written = 'over ' + req.body.budget + 'Rs. Car'
+        }
+        else{
+            written ="under " + req.body.budget +"Rs. Car"
+        }
+        for(let car of arr){
+            if(car.rate<=req.body.budget)
             {
-            cars.push(car)
+                cars.push(car)
+            }
         }
     }
-    if(cars.length<=0){
-        res.send('empty')
+    else{
+        written ='under '+ req.body.budget+"Rs. " + req.body.cartype + ' Cars'; 
+        for(let car of arr){
+            if(car.type==req.body.cartype && car.rate<=req.body.budget)
+                {
+                cars.push(car)
+            }
+        }   
     }
-    res.render('cars',{numberWithCommas : function (x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        },cars,isAll})
+    
+   
+        res.render('cars',{numberWithCommas : function (x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        },cars,isAll,written})
+    
 })
 router.get('/review',(req,res,next)=>{
     const rev = review.array
@@ -78,29 +95,36 @@ router.get('/review',(req,res,next)=>{
 })
 router.get('/:cars',(req,res,next)=>{
     let isAll = true;
+    written = "";
     if(req.params.cars=='Allcars'){
+        console.log(req.params.cars)
         let cars = data.DATA
+        console.log(cars)
+        written = 'All Car';
         res.render('cars',{numberWithCommas : function (x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        },cars,isAll})
-    }
-    let arr = data.DATA;
-    let cars = [];
-    for(let car of arr){
-        console.log(car.type)
-        const type = car.type;
-        if(type==req.params.cars){
-            cars.push(car)
-        }
-    }
-    isAll=false;
-    if(cars.length==0){
-        res.render('404');
+        },cars,isAll,written})
     }
     else{
-        res.render('cars',{numberWithCommas : function (x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          },cars, isAll})
+        let arr = data.DATA;
+        let cars = [];
+        for(let car of arr){
+            console.log(car.type)
+            const type = car.type;
+            if(type==req.params.cars){
+                cars.push(car)
+            }
+        }
+        isAll=false;
+        if(cars.length==0){
+            res.render('404');
+        }
+        else{
+            written = req.params.cars;
+            res.render('cars',{numberWithCommas : function (x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              },cars, isAll})
+        }
     }
 })
 router.get('/:cars/:id',(req,res,next)=>{
